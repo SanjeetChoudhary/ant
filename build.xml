@@ -24,7 +24,9 @@
 
     <property name="build.dir" value="build"/>
     <property name="src.dir" value="src"/>
-
+    <property
+            name="ivy.local.default.root"
+            value="${project.basedir}/../../repository/local"/>
 
     <!-- =================================
           target: load-ivy         
@@ -63,6 +65,16 @@
             description="clean tutorial: delete repository, ivy cache, and all projects">
         <delete dir="repository"/>
         <ivy:cleancache/>
+        <ivy-resolve file="ivy.xml"/>
+        <ivy-publish
+                artifactspattern="${project.basedir}/target/[module]-[revision].[ext]"
+                forcedeliver="true"
+                overwrite="true"
+                resolver="local"
+                status="integration"
+                pubdate="now"
+                pubrevision="${project.version}"
+        />
     </target>
 
 
